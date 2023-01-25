@@ -6,7 +6,9 @@ public class GameManager : MonoBehaviour
 {
     #region Private Fields
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private GameObject failStateScreen;
     [SerializeField] private TMPro.TMP_Text scoreText;
+
     private Vector3 playerStartPos;
     private int score = 0;
     #endregion
@@ -31,16 +33,10 @@ public class GameManager : MonoBehaviour
     {
         playerStartPos = playerTransform.position;
     }
-    private void ResetGame()
-    {
-        Debug.Log("Game Reset");
-        ResetScore();
-        ResetTrack();
-        ResetPlayer();
-    }
 
-    private void ResetScore()
+    private void ResetUI()
     {
+        failStateScreen.SetActive(false);
         score = 0;
         SetScore();
     }
@@ -54,11 +50,18 @@ public class GameManager : MonoBehaviour
     {
         playerTransform.position = playerStartPos;
         playerTransform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        CameraManager.Instance.StartCamera();
     }
 
     private void SetScore()
     {
         scoreText.text = "Score: " + score;
+    }
+
+    private void FailState()
+    {
+        CameraManager.Instance.StopCamera();
+        failStateScreen.SetActive(true);
     }
     #endregion
 
@@ -69,9 +72,17 @@ public class GameManager : MonoBehaviour
         SetScore();
     }
 
+    public void ResetGame()
+    {
+        Debug.Log("Game Reset");
+        ResetUI();
+        ResetTrack();
+        ResetPlayer();
+    }
+
     public void DeathSignal()
     {
-        ResetGame();
+        FailState();
     }
 
     public Transform GetPlayerTransform()

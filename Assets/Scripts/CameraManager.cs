@@ -8,6 +8,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
     private Transform playerTransform;
     [SerializeField] private float rotateOffset = 15.0f;
+    private bool cameraStop = false;
     #endregion
 
     #region Public Fields
@@ -38,6 +39,7 @@ public class CameraManager : MonoBehaviour
 
     private void CameraFollow()
     {
+        if(cameraStop) { return; }
         Vector3 pos = cameraTransform.position;
         pos.x = playerTransform.position.x;
         cameraTransform.position = pos;
@@ -45,6 +47,7 @@ public class CameraManager : MonoBehaviour
     #endregion
 
     #region Public Methods
-
+    public void StopCamera() => cameraStop = true;
+    public void StartCamera() => cameraStop = false;
     #endregion
 }

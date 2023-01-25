@@ -47,6 +47,17 @@ public class TrackSpawner : MonoBehaviour
     {
         GameObject trackPiece = GameObject.Instantiate(trackPieces[Random.Range(0, trackPieces.Count)], new Vector3(nextTrackXValue, 0.0f, 0.0f), Quaternion.identity);
         currentTrackPieces.Add(trackPiece);
+        
+        TrimTrackBehind();
+    }
+
+    private void TrimTrackBehind()
+    {
+        if(currentTrackPieces.Count >= 5)
+        {
+            Destroy(currentTrackPieces[0]);
+            currentTrackPieces.RemoveAt(0);
+        }
     }
     #endregion
 
