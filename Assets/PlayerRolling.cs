@@ -8,6 +8,7 @@ public class PlayerRolling : MonoBehaviour
     [SerializeField] private Rigidbody ballRigidbody;
     [SerializeField] private float constantSpeed = 0.75f;
     [SerializeField] private float activeSpeed = 3.0f;
+    private float deathHeightThreshold = -2.5f;
     #endregion
 
     #region Monobehavior Callbacks
@@ -19,6 +20,7 @@ public class PlayerRolling : MonoBehaviour
     void FixedUpdate()
     {
         CaptureInput();
+        CheckHeight();
     }
     #endregion
 
@@ -31,6 +33,15 @@ public class PlayerRolling : MonoBehaviour
         Vector3 movement = new Vector3(movementHorizontal, 0.0f, movementVertical);
         movement.x += constantSpeed;
         ballRigidbody.AddForce(movement * activeSpeed);
+    }
+
+    private void CheckHeight()
+    {
+        if(transform.position.y <= deathHeightThreshold)
+        {
+            Debug.Log("Player Fell Off");
+            GameManager.Instance.DeathSignal();
+        }
     }
     #endregion
 
