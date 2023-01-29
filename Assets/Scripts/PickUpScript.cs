@@ -8,10 +8,6 @@ public class PickUpScript : MonoBehaviour
     private bool scoreable = true;
     #endregion
 
-    #region Public Fields
-
-    #endregion
-
     #region Monobehavior Callbacks
     private void OnEnable()
     {
@@ -35,9 +31,4 @@ public class PickUpScript : MonoBehaviour
         gameObject.SetActive(false);
     }
     #endregion
-
-    #region Public Methods
-
-    #endregion
-
 }

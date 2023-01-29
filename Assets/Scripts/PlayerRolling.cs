@@ -12,11 +12,6 @@ public class PlayerRolling : MonoBehaviour
     #endregion
 
     #region Monobehavior Callbacks
-    void Start()
-    {
-
-    }
-
     void FixedUpdate()
     {
         CaptureInput();
